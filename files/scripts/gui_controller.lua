@@ -1,7 +1,8 @@
 dofile_once("data/scripts/lib/utilities.lua")
 
 --switch to default anim on empty hand
---add a 5th slot with dragging support (add to hand inventory and manually set the mActiveItem)
+--HermeS Index compatibility
+--mnee support for gamepads
 --remove inherit comps from wands
 
 function new_image( gui, uid, pic_x, pic_y, pic_z, pic, s_x, s_y, alpha, interactive )

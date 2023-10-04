@@ -11,7 +11,6 @@ end
 
 --redo akimbo controls
 --put the wand in the player's inventory while not firing but still put the wand at the hand's spot
---try to apply the recoil onto the player
 
 -- local x, y = EntityGetTransform( hooman )
 -- local m_x, m_y = DEBUG_GetMouseWorld()

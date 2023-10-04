@@ -86,6 +86,11 @@
 		execute_every_n_frame="1"
 	></LuaComponent>
 	
+	<LuaComponent
+		script_shot="mods/Twin-Linked/files/scripts/shot_controller.lua"
+		execute_every_n_frame="-1"
+	></LuaComponent>
+
 	<!-- <LuaComponent -->
 		<!-- script_source_file="mods/Twin-Linked/files/scripts/effect_controller.lua" -->
 		<!-- execute_every_n_frame="1" -->
