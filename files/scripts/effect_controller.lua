@@ -1,19 +1,32 @@
+dofile_once( "mods/index_core/files/_lib.lua" )
+
 local l_arm = GetUpdatedEntityID()
 local hooman = EntityGetRootEntity( l_arm )
-local angery_comp = GameGetGameEffect( hooman, "BERSERK" )
 
---glass cannon support
-if( angery_comp ~= 0 ) then
-	local duration = ComponentGetValue2( angery_comp, "frames" )
-	local pissed_comp = GameGetGameEffect( l_arm, "BERSERK" )
-	if( pissed_comp ~= 0 ) then
-		ComponentGetValue2( pissed_comp, "frames", duration )
+local rage_clock = GameGetGameEffectCount( hooman, "BERSERK" )
+local rage_comp = GameGetGameEffect( l_arm, "BERSERK" )
+if( rage_clock > 0 ) then
+	if( rage_comp > 0 ) then
+		ComponentSetValue2( rage_comp, "frames", 5 )
 	else
-		ComponentSetValue2( GetGameEffectLoadTo( l_arm, "BERSERK", true ), "frames", 1 )
+		local comp_id, entity_id = GetGameEffectLoadTo( l_arm, "BERSERK", true )
+		ComponentSetValue2( comp_id, "frames", 2 )
+		
+		local light_comp = EntityGetFirstComponentIncludingDisabled( entity_id, "LightComponent" )
+		if( light_comp ~= nil ) then
+			EntityRemoveComponent( entity_id, light_comp )
+		end
+		local emit_comp = EntityGetFirstComponentIncludingDisabled( entity_id, "SpriteParticleEmitterComponent" )
+		if( emit_comp ~= nil ) then
+			EntityRemoveComponent( entity_id, emit_comp )
+		end
 	end
-else
-	local pissed_comp = GameGetGameEffect( l_arm, "BERSERK" )
-	if( pissed_comp ~= 0 ) then
-		EntityRemoveComponent( l_arm, pissed_comp )
-	end
+elseif( GameGetGameEffectCount( l_arm, "BERSERK" ) > 0 ) then
+	EntityRemoveComponent( l_arm, rage_comp )
+end
+
+local nuke_clock = GameGetGameEffectCount( hooman, "DAMAGE_MULTIPLIER" )
+if( nuke_clock > 0 ) then
+	ComponentSetValue2( GameGetGameEffect( hooman, "DAMAGE_MULTIPLIER" ), "frames", 0 )
+	ComponentSetValue2( GetGameEffectLoadTo( get_hooman_child( l_arm, "arm_r" ), "DAMAGE_MULTIPLIER", true ), "frames", -1 )
 end

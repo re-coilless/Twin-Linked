@@ -1,8 +1,13 @@
-<Entity name="arm_l" tags="polymorphable_NOT,arm_left">
-	<CharacterDataComponent 
+<Entity name="twin_linked_arm_l" tags="polymorphable_NOT">
+	<CharacterDataComponent
+		gravity="0"
 	></CharacterDataComponent>
 	
 	<CharacterPlatformingComponent 
+		accel_x="1"
+		accel_x_air="0.1"
+		pixel_gravity="600"
+		keyboard_look="0"
 		mouse_look="1"
 		mouse_look_buffer="1"
 	></CharacterPlatformingComponent>
@@ -26,18 +31,17 @@
 	></GenomeDataComponent>
 	
 	<Inventory2Component
-		quick_inventory_slots="1"
-		full_inventory_slots_x="1"
-		full_inventory_slots_y="1"
+		quick_inventory_slots="0"
+		full_inventory_slots_x="0"
+		full_inventory_slots_y="0"
 	></Inventory2Component>
-	
+
 	<ItemPickUpperComponent
-		_enabled="0"
-		_tags="pickuper"
 		is_immune_to_kicks="1"
     	is_in_npc="1"
+		only_pick_this_entity="0"
 	></ItemPickUpperComponent>
-	
+
 	<ControlsComponent
 		enabled="0" 
 	></ControlsComponent>
@@ -73,6 +77,7 @@
 			_tags="with_item"
 			image_file="mods/Twin-Linked/files/pics/arm_left.xml"
 			z_index="0.61"
+			alpha="0"
 		></SpriteComponent>
 	</Entity>
 	
@@ -82,20 +87,35 @@
 	></LuaComponent>
 	
 	<LuaComponent
-		script_source_file="mods/Twin-Linked/files/scripts/gui_controller.lua"
-		execute_every_n_frame="1"
-	></LuaComponent>
-	
-	<LuaComponent
 		script_shot="mods/Twin-Linked/files/scripts/shot_controller.lua"
 		execute_every_n_frame="-1"
 	></LuaComponent>
 
-	<!-- <LuaComponent -->
-		<!-- script_source_file="mods/Twin-Linked/files/scripts/effect_controller.lua" -->
-		<!-- execute_every_n_frame="1" -->
-	<!-- ></LuaComponent> -->
+	<LuaComponent
+		script_source_file="mods/Twin-Linked/files/scripts/effect_controller.lua"
+		execute_every_n_frame="1"
+	></LuaComponent>
 	
-	<Entity name="inventory_quick">
+	<Entity name="inventory_quick" tags="index_inventory" >
+		<VariableStorageComponent
+			name="index_kind"
+			value_string="|universal|"
+		></VariableStorageComponent>
+		<VariableStorageComponent
+			name="index_size"
+			value_string="|1|1|"
+		></VariableStorageComponent>
+		<VariableStorageComponent
+			name="index_check"
+			value_string="mods/Twin-Linked/files/scripts/inv_check.lua"
+		></VariableStorageComponent>
+		<VariableStorageComponent
+			name="index_update"
+			value_string="mods/Twin-Linked/files/scripts/inv_update.lua"
+		></VariableStorageComponent>
+		<VariableStorageComponent
+			name="index_gui"
+			value_string="mods/Twin-Linked/files/scripts/gui_controller.lua"
+		></VariableStorageComponent>
 	</Entity>
 </Entity>

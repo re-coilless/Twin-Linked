@@ -2,18 +2,17 @@ table.insert(perk_list,
 {
 	id = "GOING_DUAL",
 	ui_name = "Twin-Linked",
-	ui_description = "Spirits of the Left Hand are now obey you.",
+	ui_description = "The Left obeys...",
 	ui_icon = "mods/Twin-Linked/files/pics/perk_icon.png",
 	perk_icon = "mods/Twin-Linked/files/pics/perk_icon.png",
 	usable_by_enemies = false,
 	not_in_default_perk_pool = true,
 	func = function( entity_perk_item, entity_who_picked, item_name )
-		edit_component_with_tag( entity_who_picked, "SpriteComponent", "character", function(comp,vars) 
-			ComponentSetValue2( comp, "image_file", "mods/Twin-Linked/files/pics/player_handless.xml" )
-			EntityRefreshSprite( entity_who_picked, comp )
-		end)
+		-- local pic_comp = EntityGetFirstComponentIncludingDisabled( entity_who_picked, "SpriteComponent", "character" )
+		-- ComponentSetValue2( pic_comp, "image_file", "mods/Twin-Linked/files/pics/player_handless.xml" )
+        -- EntityRefreshSprite( entity_who_picked, pic_comp )
 		
-		local hot_comp = EntityAddComponent( entity_who_picked, "HotspotComponent",
+		EntityAddComponent( entity_who_picked, "HotspotComponent",
 		{
 			_tags = "left_arm_root",
 			sprite_hotspot_name = "left_arm_start",
@@ -22,5 +21,10 @@ table.insert(perk_list,
 		local x, y = EntityGetTransform( entity_who_picked )
 		local left_arm = EntityLoad( "mods/Twin-Linked/files/entities/left_arm.xml", x, y )
 		EntityAddChild( entity_who_picked, left_arm )
+
+		local init_item = EntityLoad( "mods/Twin-Linked/files/entities/init_item.xml", x, y )
+		local init_comp = EntityGetFirstComponentIncludingDisabled( init_item, "ItemComponent" )
+		ComponentSetValue2( init_comp, "npc_next_frame_pickable", 0 )
+		ComponentSetValue2( EntityGetFirstComponentIncludingDisabled( left_arm, "ItemPickUpperComponent" ), "only_pick_this_entity", init_item )
 	end,
 })

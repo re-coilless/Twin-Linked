@@ -2,30 +2,26 @@ local l_arm = GetUpdatedEntityID()
 local hooman = EntityGetRootEntity( l_arm )
 
 local aim_x, aim_y = ComponentGetValue2( EntityGetFirstComponentIncludingDisabled( hooman, "ControlsComponent" ), "mAimingVector" )
-ComponentSetValueVector2( EntityGetFirstComponentIncludingDisabled( l_arm, "ControlsComponent" ), "mAimingVector", aim_x, aim_y )
+local ctrl_comp = EntityGetFirstComponentIncludingDisabled( l_arm, "ControlsComponent" )
+ComponentSetValueVector2( ctrl_comp, "mAimingVector", aim_x, aim_y )
+ComponentSetValue2( ctrl_comp, "mMousePosition", aim_x*1000, aim_y*1000 )
 
-local RMB_down = ComponentGetValue2( EntityGetFirstComponentIncludingDisabled( hooman, "ControlsComponent" ), "mButtonDownRightClick" )
-if( RMB_down and not( GameIsInventoryOpen())) then
-	ComponentSetValue2( EntityGetFirstComponentIncludingDisabled( l_arm, "PlatformShooterPlayerComponent" ), "mForceFireOnNextUpdate", true )
+local char_comp = EntityGetFirstComponentIncludingDisabled( l_arm, "CharacterDataComponent" )
+local default_x, default_y = GetValueNumber( "default_recoil_x", 0 ), GetValueNumber( "default_recoil_y", 200 )
+local r_x, r_y = ComponentGetValue2( char_comp, "mVelocity" )
+if( r_x ~= default_x or r_y ~= default_y ) then
+	local last_x, last_y = GetValueNumber( "last_recoil_x", 0 ), GetValueNumber( "last_recoil_y", 0 )
+	if( last_x == default_x and last_y == default_y ) then
+		local data_comp = EntityGetFirstComponentIncludingDisabled( hooman, "CharacterDataComponent" )
+		if( data_comp ~= nil ) then
+			local v_x, v_y = ComponentGetValue2( data_comp, "mVelocity" )
+			ComponentSetValue2( data_comp, "mVelocity", v_x + ( r_x - default_x ), v_y + ( r_y - default_y ))
+		end
+	elseif( last_x == r_x and last_y == r_y ) then
+		SetValueNumber( "default_recoil_x", r_x )
+		SetValueNumber( "default_recoil_y", r_y )
+	end
+	ComponentSetValue2( char_comp, "mVelocity", default_x, default_y )
 end
-
---redo akimbo controls
---put the wand in the player's inventory while not firing but still put the wand at the hand's spot
-
--- local x, y = EntityGetTransform( hooman )
--- local m_x, m_y = DEBUG_GetMouseWorld()
--- aim_x, aim_y = m_x - x, m_y - y
-
--- ComponentSetValue2( ctrl_comp, "mButtonDownLeft", rlin[1] or ctrl_tbl[1] < 0 )
--- ComponentSetValue2( ctrl_comp, "mButtonDownRight", rlin[2] or ctrl_tbl[1] > 0 )
--- ComponentSetValue2( ctrl_comp, "mButtonDownDown", rlin[3] or ctrl_tbl[2] < 0 )
--- ComponentSetValue2( ctrl_comp, "mButtonDownFly", gonna_fly )
--- ComponentSetValue2( ctrl_comp, "mFlyingTargetY", -999999 )
--- if( gonna_fly ) then
--- 	local plat_comp = EntityGetFirstComponentIncludingDisabled( hooman, "CharacterPlatformingComponent" )
--- 	ComponentSetValue2( plat_comp, "keyboard_look", false )
--- 	ComponentSetValue2( plat_comp, "mouse_look", true )
--- end
--- ComponentSetValue2( ctrl_comp, "mButtonDownFire", gonna_shoot )
--- ComponentSetValue2( ctrl_comp, "mAimingVector", aim_x, aim_y )
--- ComponentSetValue2( ctrl_comp, "mMousePosition", aim_x*1000, aim_y*1000 )
+SetValueNumber( "last_recoil_x", r_x )
+SetValueNumber( "last_recoil_y", r_y )
