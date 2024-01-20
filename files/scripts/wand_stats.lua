@@ -25,7 +25,7 @@ GUI_STRUCT.custom.twin_linked = function( gui, uid, screen_w, screen_h, data, zs
                 do
                     local cast_delay = this_info.wand_info.delay_frame
                     data.memo.delay_max[left_one] = ( data.memo.delay_max[left_one] or -1 ) < cast_delay and cast_delay or data.memo.delay_max[left_one]
-                    if( data.memo.delay_max[left_one] > data.delay_threshold ) then
+                    if( data.memo.delay_max[left_one] > data.reload_threshold ) then
                         uid = new_vanilla_bar( gui, uid, pic_x, pic_y, {zs.main_back,zs.main}, {16,2,16*cast_delay/data.memo.delay_max[left_one]}, "data/ui_gfx/hud/colors_reload_bar.png" )
                         pic_y = pic_y + 6
                     end
