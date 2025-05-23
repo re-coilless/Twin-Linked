@@ -2,19 +2,17 @@ ModLuaFileAppend( "data/scripts/perks/perk_list.lua", "mods/Twin-Linked/files/sc
 
 --try making an easy-to-do compatibility system for others
 function OnModInit()
+	if( not( ModIsEnabled( "index_core" ))) then return end
+	
 	dofile_once( "mods/index_core/files/_lib.lua" )
-	clean_append( "mods/index_core/files/_structure.lua", "mods/Twin-Linked/files/scripts/wand_stats.lua" )
+	pen.magic_append( "mods/index_core/files/_structure.lua", "mods/Twin-Linked/files/scripts/wand_stats.lua" )
 end
 
 function OnPlayerSpawned( player )
-	if( not( ModIsEnabled( "index_core" ))) then
-		return
-	end
+	if( not( ModIsEnabled( "index_core" ))) then return end
 	
 	local initer = "AKIMBO_BABY"
-	if GameHasFlagRun( initer ) then
-		return
-	end
+	if GameHasFlagRun( initer ) then return end
 	GameAddFlagRun( initer )
 
 	function perker( hooman, perk_id )
@@ -48,11 +46,4 @@ function OnPlayerSpawned( player )
 		EntityAddChild( hooman, ui )
 	end
 	perker( player, "GOING_DUAL" )
-	
-	-- local x, y = EntityGetTransform( player )
-	-- local gun_path = "data/entities/items/starting_wand_rng.xml"
-	-- if( ModIsEnabled( "gura" )) then
-	-- 	gun_path = "mods/gura/files/gura.xml"
-	-- end
-	-- EntityLoad( gun_path, x, y )
 end

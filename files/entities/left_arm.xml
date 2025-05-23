@@ -98,23 +98,23 @@
 	
 	<Entity name="inventory_quick" tags="index_inventory" >
 		<VariableStorageComponent
-			name="index_kind"
+			name="index_inv_kind"
 			value_string="|universal|"
 		></VariableStorageComponent>
 		<VariableStorageComponent
-			name="index_size"
+			name="index_inv_size"
 			value_string="|1|1|"
 		></VariableStorageComponent>
 		<VariableStorageComponent
-			name="index_check"
+			name="index_inv_check"
 			value_string="mods/Twin-Linked/files/scripts/inv_check.lua"
 		></VariableStorageComponent>
 		<VariableStorageComponent
-			name="index_update"
+			name="index_inv_update"
 			value_string="mods/Twin-Linked/files/scripts/inv_update.lua"
 		></VariableStorageComponent>
 		<VariableStorageComponent
-			name="index_gui"
+			name="index_inv_gui"
 			value_string="mods/Twin-Linked/files/scripts/gui_controller.lua"
 		></VariableStorageComponent>
 	</Entity>
