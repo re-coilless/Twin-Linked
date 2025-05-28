@@ -75,7 +75,7 @@
 		
 		<SpriteComponent
 			_tags="with_item"
-			image_file="mods/Twin-Linked/files/pics/arm_left.xml"
+			image_file="[[ARM_SPOT]]"
 			z_index="0.61"
 			alpha="0"
 		></SpriteComponent>

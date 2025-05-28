@@ -12,8 +12,8 @@ local r_x, r_y = ComponentGetValue2( char_comp, "mVelocity" )
 if( r_x ~= default_x or r_y ~= default_y ) then
 	local last_x, last_y = GetValueNumber( "last_recoil_x", 0 ), GetValueNumber( "last_recoil_y", 0 )
 	if( last_x == default_x and last_y == default_y ) then
-		local data_comp = EntityGetFirstComponentIncludingDisabled( hooman, "CharacterDataComponent" )
-		if( pen.vld( data_comp, true )) then
+		local data_comp = EntityGetFirstComponentIncludingDisabled( hooman, "CharacterDataComponent" ) or 0
+		if( data_comp > 0 ) then
 			local v_x, v_y = ComponentGetValue2( data_comp, "mVelocity" )
 			ComponentSetValue2( data_comp, "mVelocity", v_x + ( r_x - default_x ), v_y + ( r_y - default_y ))
 		end

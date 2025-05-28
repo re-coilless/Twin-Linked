@@ -22,9 +22,10 @@ return function( inv_info, info_old, info_new )
     if( is_twin ) then
         EntityAddTag( hooman, "twin_linked" )
     else EntityRemoveTag( hooman, "twin_linked" ) end
-
+    
+    local pic = GlobalsGetValue( "TWIN_LINKED_BODY", "mods/Twin-Linked/files/pics/player_handless.xml" )
     local pic_comp = EntityGetFirstComponentIncludingDisabled( hooman, "SpriteComponent", "character" )
-    ComponentSetValue2( pic_comp, "image_file", is_twin and "mods/Twin-Linked/files/pics/player_handless.xml" or "data/enemies_gfx/player.xml" )
+    ComponentSetValue2( pic_comp, "image_file", is_twin and pic or "data/enemies_gfx/player.xml" )
     local pic_comps = EntityGetComponentIncludingDisabled( hooman, "SpriteComponent" ) or {}
     for i,comp in ipairs( pic_comps ) do EntityRefreshSprite( hooman, comp ) end
 

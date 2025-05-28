@@ -3,8 +3,8 @@ dofile_once( "mods/index_core/files/_lib.lua" )
 local l_arm = GetUpdatedEntityID()
 local hooman = EntityGetRootEntity( l_arm )
 
-local rage_clock = GameGetGameEffectCount( hooman, "BERSERK" )
 local rage_comp = GameGetGameEffect( l_arm, "BERSERK" )
+local rage_clock = GameGetGameEffectCount( hooman, "BERSERK" )
 if( pen.vld( rage_clock, true )) then
 	if( not( pen.vld( rage_comp, true ))) then
 		local comp_id, entity_id = GetGameEffectLoadTo( l_arm, "BERSERK", true )
@@ -15,7 +15,7 @@ if( pen.vld( rage_clock, true )) then
 		local emit_comp = EntityGetFirstComponentIncludingDisabled( entity_id, "SpriteParticleEmitterComponent" )
 		if( pen.vld( emit_comp, true )) then EntityRemoveComponent( entity_id, emit_comp ) end
 	else ComponentSetValue2( rage_comp, "frames", 5 ) end
-elseif( GameGetGameEffectCount( l_arm, "BERSERK" ) > 0 ) then EntityRemoveComponent( l_arm, rage_comp ) end
+elseif( pen.vld( GameGetGameEffectCount( l_arm, "BERSERK" ), true )) then EntityRemoveComponent( l_arm, rage_comp ) end
 
 if( pen.vld( GameGetGameEffectCount( hooman, "DAMAGE_MULTIPLIER" ), true )) then
 	ComponentSetValue2( GameGetGameEffect( hooman, "DAMAGE_MULTIPLIER" ), "frames", 0 )
