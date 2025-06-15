@@ -1,0 +1,1 @@
+Allows one to use the left hand for all their akimbo needs. Requires [Hermes Index EXQ](https://github.com/re-coilless/index_core).
