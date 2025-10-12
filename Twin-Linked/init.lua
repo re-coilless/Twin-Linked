@@ -3,8 +3,7 @@ ModLuaFileAppend( "data/scripts/perks/perk_list.lua", "mods/Twin-Linked/files/sc
 function OnModInit()
 	if( not( ModIsEnabled( "index_core" ))) then return end
 	dofile_once( "mods/index_core/files/_lib.lua" )
-
-	pen.magic_append( "mods/index_core/files/_structure.lua", "mods/Twin-Linked/files/scripts/wand_stats.lua" )
+	pen.magic_append( "mods/index_core/files/_structure.lua", "mods/Twin-Linked/files/scripts/wand_stats.lua", true )
 end
 
 function OnPlayerSpawned( player )

@@ -1,1 +1,1 @@
-return function( item_info, inv_info ) return item_info.is_wand or false end
+return function( inv_info, item_info ) return item_info.is_wand or false end
