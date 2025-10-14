@@ -14,7 +14,7 @@ return function( pic_x, pic_y, inv_info, xys, slot_func )
     
     local wand_id = xD.slot_state[ inv_id ][1][1]
     local core_x, core_y = unpack( xys.inv_root_orig )
-    index.new_generic_slot( core_x - 19, core_y, {
+    index.dft.slot( core_x - 19, core_y, {
         inv_slot = { 1, 1 },
         inv_id = inv_id, id = wand_id,
     }, index.D.is_opened, true, true )
