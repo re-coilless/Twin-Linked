@@ -12,7 +12,7 @@ GUI_STRUCT.custom.twin_linked = function( screen_w, screen_h, xys )
         local left_id = ( EntityGetWithTag( "left_linked" ) or {})[1]
         if( not( pen.vld( left_id, true ))) then return end
 
-        local info = xD.item_list[ left_id ] or {}
+        local info = xM.item_memo[ left_id ] or {}
         if( not( pen.vld( info.id, true ))) then return end
 
         local mana_max, mana = info.wand_info.mana_max, info.wand_info.mana
