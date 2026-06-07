@@ -1,4 +1,3 @@
-
 return function( pic_x, pic_y, inv_info, xys, slot_func )
     local xD, xM, inv_id = index.D, index.M, inv_info.id
     if( EntityGetRootEntity( inv_id ) ~= xD.player_id ) then return end
