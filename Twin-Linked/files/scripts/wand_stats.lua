@@ -1,10 +1,9 @@
 local GLOBAL_MODES, GLOBAL_MUTATORS, APPLETS, BOSS_BARS,
-	WAND_STATS, SPELL_STATS, MATTER_DESCS, ITEM_CATS, GUI_STRUCT = unpack( index.STRUCT )
+	WAND_STATS, SPELL_STATS, MATTER_DESCS, ITEM_CATS, GUI_MODULES, GUI_STRUCT = unpack( index.STRUCT )
 
-GUI_STRUCT.custom.twin_linked = function( screen_w, screen_h, xys )
-    if( not( pen.vld( xys.inv_root_orig ))) then return end
-    local pic_x, pic_y = xys.inv_root_orig[1] - 1, xys.inv[2] + 1
-    local xD, xM = index.D, index.M
+GUI_MODULES.custom.twin_linked = function( xD, xM, screen_w, screen_h, pos )
+    if( not( pen.vld( xD.xys.inv_root ))) then return end
+    local pic_x, pic_y = xD.xys.inv_root[1] - 1, xD.xys.inv_end_edge[2] + 1
 
     pen.hallway( function()
         if( xD.is_opened ) then return end
